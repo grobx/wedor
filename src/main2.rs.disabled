@@ -1,0 +1,25 @@
+use gtk::prelude::*;
+// use glib::prelude::*;
+use sourceview::prelude::StaticType;
+
+// glib::wrapper! {
+//     struct W @extends gtk::Window  {
+//     }
+// }
+
+fn main() {
+    if gtk::init().is_err() {
+        println!("Failed to initialize GTK.");
+        return;
+    }
+
+    sourceview::View::static_type();
+
+    let glade_src = include_str!("user_interface.glade");
+    let builder = gtk::Builder::from_string(glade_src);
+    let window: gtk::Window = builder.object("main_window").unwrap();
+
+    window.show_all();
+
+    gtk::main();
+}
